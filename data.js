@@ -12,14 +12,14 @@ let products = [
     sold: 184,
     colors: ["TITANIUM", "HITAM", "SILVER", "BIRU"],
     colorMap: {
-      "TITANIUM": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80",
-      "HITAM": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=500&q=80",
-      "SILVER": "https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=500&q=80",
-      "BIRU": "https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&w=500&q=80"
+      "TITANIUM": "ip16.jpg",
+      "HITAM": "ip16.jpg",
+      "SILVER": "ip16.jps",
+      "BIRU": "ip16.jpg"
     },
-    img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80",
+    img: "ip16.jpg",
     video: "https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-with-a-green-screen-41532-large.mp4",
-    desc: "Smartphone flagship terbaru dengan chipset tercepat, kamera kelas profesional 108MP, dan bodi berbahan Titanium ultra tahan lama.",
+    desc: "Iphone 16 dengan chipset tercepat, kamera kelas profesional 108MP, dan bodi berbahan Titanium ultra tahan lama.",
     reviews: [
       { name: "Seraphine Azellie", rating: 5, date: "02 Ags 2026", variant: "Warna: TITANIUM", comment: "Layar OLED-nya super tajam, kamera malamnya jernih banget tanpa noise! ❤️❤️" },
       { name: "Rylee Karlanna", rating: 5, date: "28 Jul 2026", variant: "Warna: HITAM", comment: "Performa gaming tanpa lag dan daya tahan baterai seharian penuhh." }
