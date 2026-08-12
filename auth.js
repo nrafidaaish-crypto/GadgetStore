@@ -41,12 +41,12 @@ function handleLogin(e) {
   const p = document.getElementById('login-password').value.trim();
 
   if (selectedRole === 'admin') {
-    if (u === 'Hiraya Georgienne' && p === 'prettyheelsSt' && email === 'hirayagienne@gmail.com' && phone === '082839103746') {
+    if (u === 'Hiraya Georgienne' && p === 'HG' && email === 'hirayagienne@gmail.com' && phone === '0828') {
       currentUser = { 
         role: 'admin', 
         name: 'Hiraya Georgienne',
         email: 'hirayagienne@gmail.com',
-        phone: '082839103746'
+        phone: '0828'
       };
       showWelcomeScreen();
     } else {
