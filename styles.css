@@ -112,6 +112,20 @@ body {
   border: 1px solid rgba(232, 91, 129, 0.25);
 }
 
+.btn-clear-history {
+  background: #FF2D55;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 45, 85, 0.3);
+  transition: transform 0.2s;
+}
+.btn-clear-history:active { transform: scale(0.95); }
+
 .input-group { margin-bottom: 16px; }
 .input-group label { display: block; font-size: 12px; font-weight: 600; color: var(--primary-dark); margin-bottom: 6px; }
 .input-group input, .input-group select, .input-group textarea {
@@ -301,7 +315,7 @@ body {
 .media-slide { min-width: 100%; width: 100%; height: 330px; scroll-snap-align: start; position: relative; background: #111; display: flex; align-items: center; justify-content: center; }
 .media-slide img, .media-slide video { width: 100%; height: 330px; object-fit: cover; }
 .media-badge { position: absolute; top: 12px; right: 12px; background: rgba(58, 10, 24, 0.75); backdrop-filter: blur(4px); color: #FFF8EA; font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); z-index: 5; }
-.video-hyperlink-box { margin-top: 12px; background: var(--gradient-soft); padding: 10px 14px; border-radius: 12px; border: 1px dashed var(--color-rose); display: flex; align-items: center; justify-content: space-between; }
+.video-hyperlink-box { margin-top: 12px; background: var(--gradient-soft); padding: 10px 14px; border-radius: 12px; border: 1px dashed var(--color-rose); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .video-hyperlink-btn { color: var(--primary); font-size: 11px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
 .video-hyperlink-btn:hover { opacity: 0.8; }
 
@@ -329,7 +343,76 @@ body {
 .review-variant { font-size: 10px; color: var(--text-muted); margin-bottom: 6px; }
 .review-comment { font-size: 12px; color: #333; line-height: 1.4; }
 
-.cart-item, .order-card { 
+/* KARTU STATUS PESANAN (SESUAI DESAIN ACUAN FOTO) */
+.order-card-azariya {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-left: 5px solid #27ae60;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border-top: 1px solid #ECECEC;
+  border-right: 1px solid #ECECEC;
+  border-bottom: 1px solid #ECECEC;
+}
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.order-id-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1A1A1A;
+}
+.order-status-badge {
+  background: #E8F5E9;
+  color: #2E7D32;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.order-detail-line {
+  font-size: 12px;
+  color: #555555;
+  line-height: 1.5;
+  margin-bottom: 2px;
+}
+
+.order-product-line {
+  font-weight: 700;
+  color: #222222;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.order-price-line {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1A1A1A;
+  margin-top: 4px;
+}
+
+/* SELECT CONTROL ADMIN UNTUK UBAH STATUS */
+.status-select {
+  padding: 5px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--color-rose);
+  background: #FFF8EE;
+  color: var(--primary-dark);
+  font-size: 11px;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+}
+
+.cart-item { 
   background: rgba(255, 255, 255, 0.94); padding: 14px; border-radius: var(--radius); 
   margin-bottom: 12px; display: flex; gap: 12px; 
   box-shadow: var(--shadow-card); border: 1px solid var(--border-light);
@@ -373,29 +456,6 @@ body {
 .role-selector { display: flex; background: rgba(133, 15, 55, 0.08); border-radius: 25px; padding: 4px; margin-bottom: 20px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
 .role-btn { flex: 1; padding: 9px; border-radius: 20px; border: none; font-weight: 700; font-size: 12px; color: var(--primary); cursor: pointer; background: transparent; transition: 0.3s; }
 .role-btn.active { background: var(--gradient-btn); color: white; box-shadow: 0 4px 10px rgba(133, 15, 55, 0.25); }
-
-/* STATUS BADGE & SELECT (ADMIN CONTROL) */
-.status-select {
-  padding: 4px 8px;
-  border-radius: 12px;
-  border: 1px solid var(--color-rose);
-  background: #FFF8EE;
-  color: var(--primary-dark);
-  font-size: 11px;
-  font-weight: 700;
-  outline: none;
-  cursor: pointer;
-}
-.status-badge {
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 700;
-  display: inline-block;
-}
-.status-diproses { background: #FFE8EC; color: #C22055; border: 1px solid #FFB2C3; }
-.status-dikirim { background: #E3F2FD; color: #1976D2; border: 1px solid #90CAF9; }
-.status-selesai { background: #E8F5E9; color: #2E7D32; border: 1px solid #A5D6A7; }
 
 .text-center { text-align: center; }
 .mt-10 { margin-top: 10px; }
