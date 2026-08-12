@@ -1,4 +1,4 @@
- let currentUser = null;
+let currentUser = null;
 let selectedRole = 'customer';
 let historyStack = [];
 
@@ -66,157 +66,120 @@ let products = [
   },
   {
     id: 4,
-    name: "SonicPods Pro Wireless ANC Earbuds",
+    name: "Iphone 18 Pro dengan ukuran layar 6,3 inci dengan panel OLED ProMotion 120Hz.",
     price: 1850000,
     stock: 40,
     rating: 4.7,
     sold: 195,
     colors: ["PUTIH", "HITAM", "PINK"],
     colorMap: {
-      "PUTIH": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=500&q=80",
-      "HITAM": "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&w=500&q=80",
-      "PINK": "https://images.unsplash.com/photo-1631867675167-90a456a90863?auto=format&fit=crop&w=500&q=80"
+      "PUTIH": "ip18pro.jpg",
+      "HITAM": "ip18pro.jpg",
+      "PINK": "ip18pro.jpg"
     },
-    img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=500&q=80",
+    img: "ip18pro.jpg",
     video: "https://assets.mixkit.co/videos/preview/mixkit-man-putting-on-wireless-headphones-41531-large.mp4",
-    desc: "Earbuds nirkabel dengan Active Noise Cancelling (ANC) tingkat lanjut, audio resolusi tinggi, serta audio spasial 360 derajat.",
+    desc: "iPhone 18 Pro adalah calon ponsel pintar flagship dari Apple yang dirumorkan rilis pada September 2026. Perangkat ini kabarnya dibekali layar 6,3 inci dengan Dynamic Island lebih kecil, ditenagai cip Apple A20 Pro berfabrikasi 2nm, RAM 12GB, serta inovasi kamera dengan fitur variable aperture.",
     reviews: [
       { name: "Clarissa Devi", rating: 5, date: "01 Ags 2026", variant: "Warna: PUTIH", comment: "ANC-nya kedap banget, suara bass mantap dan treble sangat bening!" }
     ]
   },
   {
     id: 5,
-    name: "Pad Ultra 11 Inch M2 128GB",
+    name: "Iphone 16 Pro Max Super Retina XDR OLED 6,9 inci, resolusi 2868 x 1320 piksel, refresh rate 120 Hz (ProMotion)",
     price: 8990000,
     stock: 30,
     rating: 4.9,
     sold: 160,
     colors: ["GRAY", "SILVER"],
     colorMap: {
-      "GRAY": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=500&q=80",
-      "SILVER": "https://images.unsplash.com/photo-1561154464-82e9adf32764?auto=format&fit=crop&w=500&q=80"
+      "GRAY": "ip16promax.jpg",
+      "SILVER": "ip16promax.jpg"
     },
-    img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=500&q=80",
+    img: "ip16promax.jpg",
     video: "https://assets.mixkit.co/videos/preview/mixkit-hands-typing-on-a-laptop-41528-large.mp4",
-    desc: "Tablet serbaguna dengan layar Liquid Retina, kompatibel dengan Stylus Pen dan Magnetic Keyboard untuk produktivitas tinggi.",
+    desc: "iPhone 16 Pro Max adalah ponsel flagship terbesar dari Apple yang dirilis pada September 2024. Ponsel ini dibekali layar Super Retina XDR OLED 6,9 inci, chip Apple A18 Pro yang mendukung kecerdasan buatan, sistem kamera pro 48 MP dengan tombol Camera Control baru, serta baterai berkapasitas 4.685 mAh yang tahan lama",
     reviews: [
       { name: "Audrey Tampi", rating: 5, date: "29 Jul 2026", variant: "Warna: GRAY", comment: "Sangat cocok untuk ilustrasi digital dan editing video on-the-go." }
     ]
   },
   {
     id: 6,
-    name: "Lumix Lens 4K Mirrorless Vlog Camera",
+    name: "Iphone 14 Pro dengan kamera ultra-wide 12 MP dan lensa telephoto 3x 12 MP.",
     price: 11200000,
     stock: 12,
     rating: 5.0,
     sold: 88,
     colors: ["HITAM", "SILVER"],
     colorMap: {
-      "HITAM": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=500&q=80",
-      "SILVER": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=500&q=80"
+      "HITAM": "ip14pro.jpg",
+      "SILVER": "ip14pro.jpg"
     },
-    img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=500&q=80",
+    img: "ip14pro.jpg",
     video: "https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-with-a-green-screen-41532-large.mp4",
-    desc: "Kamera mirrorless ringkas dengan perekaman video 4K 60fps, autofocus deteksi mata instan, ideal untuk vlogger dan pembuat konten.",
+    desc: "iPhone 14 Pro adalah ponsel pintar kelas atas dari Apple yang dirilis pada September 2022. Ponsel ini hadir dengan layar Super Retina XDR 6,1 inci, fitur interaktif Dynamic Island, kamera utama 48 MP, serta ditenagai oleh cip cepat Apple A16 Bionic.",
     reviews: [
       { name: "Nadia Vanessa", rating: 5, date: "25 Jul 2026", variant: "Warna: HITAM", comment: "Autofokus kilat dan Kualitas warna videonya sangat natural!" }
     ]
   },
   {
     id: 7,
-    name: "PocketStation Handheld Gaming Console 512GB",
+    name: "Iphone 17 dengan kapasitas penyimpanan 256 GB dan 512 GB",
     price: 7490000,
     stock: 20,
     rating: 4.9,
     sold: 76,
     colors: ["HITAM", "PUTIH"],
     colorMap: {
-      "HITAM": "https://images.unsplash.com/photo-1531525645387-7f14be1bbea5?auto=format&fit=crop&w=500&q=80",
-      "PUTIH": "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=500&q=80"
+      "HITAM": "ip17.jpg",
+      "PUTIH": "ip17.jpg"
     },
-    img: "https://images.unsplash.com/photo-1531525645387-7f14be1bbea5?auto=format&fit=crop&w=500&q=80",
+    img: "ip17.jpg",
     video: "https://assets.mixkit.co/videos/preview/mixkit-hands-typing-on-a-laptop-41528-large.mp4",
-    desc: "Konsol game genggam portabel yang mampu menjalankan game PC kelas atas kapan saja dan di mana saja dengan sistem pendingin ganda.",
+    desc: "iPhone 17 hadir dengan layar Super Retina XDR OLED 6,3 inci berteknologi ProMotion 120Hz, ditenagai chip Apple A19, serta dibekali kamera utama Fusion 48 MP dan kamera depan berfitur Center Stage. Ponsel ini menawarkan performa lebih tangguh dan efisiensi daya yang optimal.",
     reviews: [
       { name: "Gisca Amelia", rating: 5, date: "05 Ags 2026", variant: "Warna: HITAM", comment: "Sensasi main game PC berat di mana aja lancar jaya!" }
     ]
   },
   {
     id: 8,
-    name: "KeyMaster Wireless Mechanical Keyboard RGB",
+    name: "Iphone 16 Pro dengan Kapasitas Batera 3582 mAh dengan pengisian daya cepat dan MagSafe.",
     price: 1250000,
     stock: 45,
     rating: 4.8,
     sold: 110,
     colors: ["HITAM", "PUTIH"],
     colorMap: {
-      "HITAM": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=500&q=80",
-      "PUTIH": "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=500&q=80"
+      "HITAM": "ip16pro.jpg",
+      "PUTIH": "ip16pro.jpg"
     },
-    img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=500&q=80",
+    img: "ip16pro.jpg",
     video: "https://assets.mixkit.co/videos/preview/mixkit-hands-typing-on-a-laptop-41528-large.mp4",
-    desc: "Keyboard mekanikal kustom dengan koneksi tri-mode (Bluetooth, 2.4G, Kabel), RGB per-key, dan hotswappable switch.",
+    desc: "iPhone 16 Pro memiliki layar Super Retina XDR 6,3 inci, ditenagai chip Apple A18 Pro dengan RAM 8GB, serta dibekali kamera utama 48MP, ultrawide 48MP, dan telefoto 5x zoom. Ponsel ini menggunakan bodi titanium dengan berat 199 gram dan mendukung fitur tombol Kamera Control.",
     reviews: [
       { name: "Lianna Felicia", rating: 5, date: "04 Ags 2026", variant: "Warna: HITAM", comment: "Typing feel empuk dan suara ketukannya thocky banget!" }
     ]
   },
   {
     id: 9,
-    name: "AuraSound Studio Wireless ANC Headphones",
+    name: "Iphone 17 Pro dengan Kapasitas RAM besar 12 GB untuk multitasking mulus.",
     price: 3450000,
     stock: 25,
     rating: 4.7,
     sold: 198,
     colors: ["HITAM", "SILVER"],
     colorMap: {
-      "HITAM": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80",
-      "SILVER": "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=500&q=80"
+      "HITAM": "ip17pro.jpg",
+      "SILVER": "ip17pro.jpg"
     },
-    img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80",
+    img: "ip17pro.jpg",
     video: "https://assets.mixkit.co/videos/preview/mixkit-man-putting-on-wireless-headphones-41531-large.mp4",
-    desc: "Headphone over-ear dengan kenyamanan busa memory foam, resolusi audio Hi-Res, Noise Cancelling aktif, dan baterai hingga 50 jam.",
+    desc: "iPhone 17 Pro adalah ponsel pintar andal dari Apple yang rilis pada September 2025. Ponsel ini mengusung layar OLED 6,3 inci, bodi unibody aluminium, chip A19 Pro, RAM 12 GB, sistem tiga kamera belakang 48 MP, serta daya tahan baterai yang lebih kuat.",
     reviews: [
       { name: "Shafira Aris", rating: 5, date: "06 Ags 2026", variant: "Warna: HITAM", comment: "Bantalan telinga empuk tidak bikin sakit meski dipakai bekerja seharian." }
     ]
-  },
-  {
-    id: 10,
-    name: "EchoSphere AI Smart Home Speaker",
-    price: 890000,
-    stock: 60,
-    rating: 4.9,
-    sold: 140,
-    colors: ["BLACK", "WHITE"],
-    colorMap: {
-      "BLACK": "https://images.unsplash.com/photo-1543512214-318c7553f230?auto=format&fit=crop&w=500&q=80",
-      "WHITE": "https://images.unsplash.com/photo-1589003077984-894e133dabab?auto=format&fit=crop&w=500&q=80"
-    },
-    img: "https://images.unsplash.com/photo-1543512214-318c7553f230?auto=format&fit=crop&w=500&q=80",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-person-using-a-smartwatch-41530-large.mp4",
-    desc: "Speaker pintar dengan asisten AI suara terintegrasi untuk mengontrol seluruh perangkat smart home Anda serta audio 360-derajat.",
-    reviews: [
-      { name: "Aurelia Cinta", rating: 5, date: "03 Ags 2026", variant: "Warna: BLACK", comment: "Respon perintah suara cepat dan suaranya lantang menggelegar." }
-    ]
-  },
-  {
-    id: 11,
-    name: "SkyHawk 4K Mini GPS Drone Combo",
-    price: 6800000,
-    stock: 18,
-    rating: 5.0,
-    sold: 64,
-    colors: ["GRAY", "WHITE"],
-    colorMap: {
-      "GRAY": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=500&q=80",
-      "WHITE": "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=500&q=80"
-    },
-    img: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=500&q=80",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-with-a-green-screen-41532-large.mp4",
-    desc: "Drone lipat berukuran ringkas dengan transmisi video 4K HDR, gimbal 3-axis stabil, dan waktu terbang hingga 31 menit.",
-    reviews: [
-      { name: "Kania Putri", rating: 5, date: "01 Ags 2026", variant: "Warna: GRAY", comment: "Stabilizer kameranya tenang banget walau diterpa angin kencang!" }
-    ]
   }
+  
 ];
 
 let orders = [
