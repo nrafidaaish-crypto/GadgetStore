@@ -1,5 +1,5 @@
 function chooseRole(role) {
-  selectedRole = role;
+  selectedRole = role; 
   
   if (role === 'customer' && savedCustomer) {
     currentUser = savedCustomer;
@@ -54,7 +54,7 @@ function handleLogin(e) {
         role: 'admin', 
         name: 'Hiraya Georgienne',
         email: 'hirayagienne@gmail.com',
-        phone: '0828'
+        phone: '082839103746'
       };
       showWelcomeScreen();
     } else {
@@ -65,7 +65,7 @@ function handleLogin(e) {
       role: 'customer', 
       name: u || 'Seraphine Azellie',
       email: email || 'seraphineazellie@gmail.com',
-      phone: phone || '0812'
+      phone: phone || '08123456789'
     };
 
     savedCustomer = currentUser;
@@ -82,10 +82,10 @@ function showWelcomeScreen() {
 
   if (currentUser.role === 'admin') {
     heading.innerText = `Selamat Datang, Admin ${currentUser.name}!`;
-    subtext.innerText = "Anda memiliki akses penuh untuk mengelola katalog gadget, stok, memproses pesanan, serta memantau laporan keuangan toko.";
+    subtext.innerText = "Anda memiliki akses penuh untuk mengelola katalog gadget, memproses pesanan, serta memantau laporan penjualan toko.";
   } else {
     heading.innerText = `Selamat Datang, ${currentUser.name}!`;
-    subtext.innerText = "Nikmati pengalaman berbelanja gadget dan elektronik canggih premium dengan garansi resmi dan penawaran terbaik.";
+    subtext.innerText = "Jelajahi berbagai pilihan gadget premium dengan promo menarik dan garansi resmi.";
   }
 
   welcomePage.classList.add('active');
@@ -109,7 +109,7 @@ function goToRoleSelection() {
 }
 
 function handleLogout() {
-  if (confirm("Apakah Anda yakin ingin keluar?")) {
+  if (confirm("Apakah Anda yakin ingin keluar dari akun?")) {
     if (currentUser?.role === 'customer') {
       localStorage.removeItem('saved_customer');
       savedCustomer = null;
