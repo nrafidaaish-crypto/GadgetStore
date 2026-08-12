@@ -1,12 +1,7 @@
 function chooseRole(role) {
   selectedRole = role; 
-  
-  if (role === 'customer' && savedCustomer) {
-    currentUser = savedCustomer;
-    showWelcomeScreen();
-    return;
-  }
 
+  // Menyiapkan elemen form login
   const roleTitle = document.getElementById('login-role-title');
   const roleSubtitle = document.getElementById('login-role-subtitle');
   const userLabel = document.getElementById('login-user-label');
@@ -14,31 +9,31 @@ function chooseRole(role) {
   const userInput = document.getElementById('login-username');
   const emailInput = document.getElementById('login-email');
   const phoneInput = document.getElementById('login-phone');
-  const addressInput = document.getElementById('login-address'); // TAMBAHAN ID ALAMAT
+  const addressInput = document.getElementById('login-address');
   const passInput = document.getElementById('login-password');
 
   const emailGroup = document.getElementById('login-email-group');
   const phoneGroup = document.getElementById('login-phone-group');
-  const addressGroup = document.getElementById('login-address-group'); // TAMBAHAN GROUP ALAMAT
+  const addressGroup = document.getElementById('login-address-group');
 
-  // Reset input setiap kali halaman diakses
-  userInput.value = "";
+  // Kosongkan/reset nilai input setiap kali tombol pilih peran diklik
+  if (userInput) userInput.value = "";
   if (emailInput) emailInput.value = "";
   if (phoneInput) phoneInput.value = "";
   if (addressInput) addressInput.value = "";
-  passInput.value = "";
+  if (passInput) passInput.value = "";
 
   if (role === 'admin') {
     roleTitle.innerText = "Login Admin (Penjual)";
     roleSubtitle.innerText = "Silakan masukkan kredensial Admin Gadget Store";
     userLabel.innerText = "Username Admin";
 
-    // Sembunyikan Email, Phone & Alamat untuk Admin
+    // Sembunyikan Email, Phone & Alamat khusus Admin
     if (emailGroup) emailGroup.style.display = 'none';
     if (phoneGroup) phoneGroup.style.display = 'none';
     if (addressGroup) addressGroup.style.display = 'none';
 
-    // Hapus attribute required
+    // Hapus atribut required untuk Admin
     if (emailInput) emailInput.removeAttribute('required');
     if (phoneInput) phoneInput.removeAttribute('required');
     if (addressInput) addressInput.removeAttribute('required');
@@ -52,12 +47,13 @@ function chooseRole(role) {
     if (phoneGroup) phoneGroup.style.display = 'block';
     if (addressGroup) addressGroup.style.display = 'block';
 
-    // Pasang kembali attribute required
+    // Wajibkan pengisian untuk Pelanggan
     if (emailInput) emailInput.setAttribute('required', 'true');
     if (phoneInput) phoneInput.setAttribute('required', 'true');
     if (addressInput) addressInput.setAttribute('required', 'true');
   }
 
+  // Tampilkan halaman Login
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('login-page').classList.add('active');
 }
@@ -69,17 +65,16 @@ function handleLogin(e) {
   const emailInput = document.getElementById('login-email');
   const phoneInput = document.getElementById('login-phone');
   const addressInput = document.getElementById('login-address');
-  
+  const p = document.getElementById('login-password').value.trim();
+
   const email = emailInput ? emailInput.value.trim() : '';
   const phone = phoneInput ? phoneInput.value.trim() : '';
   const address = addressInput ? addressInput.value.trim() : '';
-  const p = document.getElementById('login-password').value.trim();
 
   if (selectedRole === 'admin') {
     const validUser = u.toLowerCase() === 'hiraya georgienne';
     const validPass = p === 'HG'; 
 
-    // Admin HANYA memeriksa Username dan Password
     if (validUser && validPass) {
       currentUser = { 
         role: 'admin', 
@@ -93,7 +88,7 @@ function handleLogin(e) {
       showToast("Kredensial Admin Salah! Periksa kembali Username dan Password Anda.");
     }
   } else {
-    // Alamat otomatis masuk ke profil pelanggan
+    // Simpan data login pelanggan termasuk Alamat Lengkap
     currentUser = { 
       role: 'customer', 
       name: u || 'Seraphine Azellie',
@@ -130,7 +125,7 @@ function proceedToMainApp() {
   if (currentUser.role === 'admin') {
     navigateTo('admin-dashboard-page');
   } else {
-    renderCustomerProfile(); // DITAMBAHKAN: Update profil saat masuk app
+    renderCustomerProfile();
     navigateTo('customer-home');
   }
 }
