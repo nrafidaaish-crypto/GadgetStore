@@ -6,7 +6,7 @@ let products = [
   {
     id: 1,
     name: "Iphone 16 256GB",
-    price: 18500000,
+    price: 15499000-20999000,
     stock: 25,
     rating: 4.9,
     sold: 184,
@@ -28,7 +28,7 @@ let products = [
   {
     id: 2,
     name: "Apple Iphone 13 32GB",
-    price: 8990000,
+    price: 8249000-12000000,
     stock: 15,
     rating: 5.0,
     sold: 142,
@@ -47,7 +47,7 @@ let products = [
   {
     id: 3,
     name: "Iphone 17 air dengan kamera depan 18 MP dengan fitur Center Stage.",
-    price: 2490000,
+    price: 16999000-25999000,
     stock: 50,
     rating: 4.8,
     sold: 230,
@@ -67,7 +67,7 @@ let products = [
   {
     id: 4,
     name: "Iphone 18 Pro dengan ukuran layar 6,3 inci dengan panel OLED ProMotion 120Hz.",
-    price: 1850000,
+    price: 24999000,
     stock: 40,
     rating: 4.7,
     sold: 195,
@@ -87,7 +87,7 @@ let products = [
   {
     id: 5,
     name: "Iphone 16 Pro Max Super Retina XDR OLED 6,9 inci, resolusi 2868 x 1320 piksel, refresh rate 120 Hz (ProMotion)",
-    price: 8990000,
+    price: 20499000-24999000, 
     stock: 30,
     rating: 4.9,
     sold: 160,
@@ -106,7 +106,7 @@ let products = [
   {
     id: 6,
     name: "Iphone 14 Pro dengan kamera ultra-wide 12 MP dan lensa telephoto 3x 12 MP.",
-    price: 11200000,
+    price: 7500000-11500000,
     stock: 12,
     rating: 5.0,
     sold: 88,
@@ -125,7 +125,7 @@ let products = [
   {
     id: 7,
     name: "Iphone 17 dengan kapasitas penyimpanan 256 GB dan 512 GB",
-    price: 7490000,
+    price: 17749000-26999000,
     stock: 20,
     rating: 4.9,
     sold: 76,
@@ -144,7 +144,7 @@ let products = [
   {
     id: 8,
     name: "Iphone 16 Pro dengan Kapasitas Batera 3582 mAh dengan pengisian daya cepat dan MagSafe.",
-    price: 1250000,
+    price: 17499000-27999000,
     stock: 45,
     rating: 4.8,
     sold: 110,
@@ -163,7 +163,7 @@ let products = [
   {
     id: 9,
     name: "Iphone 17 Pro dengan Kapasitas RAM besar 12 GB untuk multitasking mulus.",
-    price: 3450000,
+    price: 22999000-3249000,
     stock: 25,
     rating: 4.7,
     sold: 198,
