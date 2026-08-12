@@ -93,10 +93,10 @@ let products = [
     sold: 160,
     colors: ["GRAY", "SILVER"],
     colorMap: {
-      "GRAY": "ip16promax.jpg",
-      "SILVER": "ip16promax.jpg"
+      "GRAY": "ip16prmx.jpg",
+      "SILVER": "ip16prmx.jpg"
     },
-    img: "ip16promax.jpg",
+    img: "ip16prmx.jpg",
     video: "ip16promax.mp4",
     desc: "iPhone 16 Pro Max adalah ponsel flagship terbesar dari Apple yang dirilis pada September 2024. Ponsel ini dibekali layar Super Retina XDR OLED 6,9 inci, chip Apple A18 Pro yang mendukung kecerdasan buatan, sistem kamera pro 48 MP dengan tombol Camera Control baru, serta baterai berkapasitas 4.685 mAh yang tahan lama",
     reviews: [
