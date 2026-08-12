@@ -70,7 +70,7 @@ function handleLogin(e) {
       role: 'customer', 
       name: u || 'Seraphine Azellie',
       email: email || 'seraphineazellie@gmail.com',
-      phone: phone || '08123456789'
+      phone: phone || '0812'
     };
 
     // SIMPAN DATA PELANGGAN KE LOCALSTORAGE AGAR TIDAK PERLU INPUT LAGI
