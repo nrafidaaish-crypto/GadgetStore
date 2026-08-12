@@ -103,9 +103,11 @@ function setupLayoutForUser() {
 
   if (currentUser.role === 'customer') {
     cartBtn.style.display = 'block';
+    
+    // MENAMBAHKAN IKON RECEIPT PADA MENU 'PESANAN SAYA'
     nav.innerHTML = `
       <button class="nav-item" onclick="navigateTo('customer-home')"><i class="fa-solid fa-laptop"></i>Marketplace</button>
-      <button class="nav-item" onclick="navigateTo('customer-orders-page')"><i class="fa-solid fa-truck-ramps-box"></i>Pesanan Saya</button>
+      <button class="nav-item" onclick="navigateTo('customer-orders-page')"><i class="fa-solid fa-receipt"></i>Pesanan Saya</button>
       <button class="nav-item" onclick="navigateTo('customer-profile-page')"><i class="fa-solid fa-user"></i>Profil</button>
     `;
     const nameEl = document.getElementById('profile-display-name');
