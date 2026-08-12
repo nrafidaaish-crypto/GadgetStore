@@ -22,12 +22,29 @@ function renderAdminDashboard() {
       <div style="font-size:11px; color:var(--text-muted); margin:4px 0;">
         ${order.items.map(i => `${i.product.name} x${i.qty}`).join(', ')}
       </div>
-      <div class="flex-between" style="font-size:12px;">
+      <div class="flex-between" style="font-size:12px; margin-top:6px;">
         <span>Total: Rp ${order.total.toLocaleString('id-ID')}</span>
-        <span class="badge-store">${order.status}</span>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <label style="font-size:10px; font-weight:600; color:var(--text-muted);">Status:</label>
+          <select class="status-select" onchange="updateOrderStatus('${order.id}', this.value)">
+            <option value="Diproses" ${order.status === 'Diproses' ? 'selected' : ''}>Diproses</option>
+            <option value="Dikirim" ${order.status === 'Dikirim' ? 'selected' : ''}>Dikirim</option>
+            <option value="Selesai" ${order.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
+          </select>
+        </div>
       </div>
     </div>
   `).join('');
+}
+
+/* ADMIN MENGUBAH STATUS PEMESANAN */
+function updateOrderStatus(orderId, newStatus) {
+  const targetOrder = orders.find(o => o.id === orderId);
+  if (targetOrder) {
+    targetOrder.status = newStatus;
+    showToast(`Status pesanan ${orderId} diubah menjadi "${newStatus}"!`);
+    renderAdminDashboard();
+  }
 }
 
 function renderAdminProducts() {
