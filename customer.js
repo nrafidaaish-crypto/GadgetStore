@@ -25,19 +25,23 @@ function openProductDetail(id) {
   selectedQuantity = 1;
 
   const initialImg = selectedDetailProduct.colorMap?.[selectedColor] || selectedDetailProduct.img;
+  const officialLink = selectedDetailProduct.officialUrl || "https://www.apple.com/id/iphone/";
 
   const container = document.getElementById('detail-content');
   container.innerHTML = `
     <div class="media-slider-container">
       <div class="media-slider">
+        <!-- Slide 1: Foto Produk -->
         <div class="media-slide">
           <span class="media-badge"><i class="fa-solid fa-image"></i> Foto 1/2</span>
           <img src="${initialImg}" id="main-detail-img" alt="${selectedDetailProduct.name}">
         </div>
+        <!-- Slide 2: Video Produk -->
         <div class="media-slide">
           <span class="media-badge"><i class="fa-solid fa-video"></i> Video 2/2</span>
           <video controls playsinline loop muted autoplay style="width:100%; height:330px; object-fit:cover;">
             <source src="${selectedDetailProduct.video}" type="video/mp4">
+            Browser Anda tidak mendukung pemutaran video.
           </video>
         </div>
       </div>
@@ -54,10 +58,19 @@ function openProductDetail(id) {
         <span><i class="fa-solid fa-truck-fast" style="color: #27ae60;"></i> Pengiriman 2-3 Hari</span>
       </div>
 
+      <!-- HYPERLINK WEB RESMI APPLE IPHONE -->
       <div class="video-hyperlink-box">
-        <span style="font-size:11px; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-film" style="color:var(--primary);"></i> Tonton Showcase Resmi:</span>
+        <span style="font-size:11px; color:var(--text-muted); font-weight:600;"><i class="fa-brands fa-apple" style="color:var(--primary); font-size:14px;"></i> Web Resmi Product:</span>
+        <a href="${officialLink}" target="_blank" class="video-hyperlink-btn">
+          Lihat Spesifikasi Apple <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+
+      <!-- HYPERLINK VIDEO STREAM SHOWCASE -->
+      <div class="video-hyperlink-box" style="margin-top:8px;">
+        <span style="font-size:11px; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-film" style="color:var(--primary);"></i> Video Stream HD:</span>
         <a href="${selectedDetailProduct.video}" target="_blank" class="video-hyperlink-btn">
-          Buka Video Stream <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          Buka Full Video <i class="fa-solid fa-play"></i>
         </a>
       </div>
 
@@ -204,35 +217,53 @@ function openVariantSheetFromCart(index) {
   openSheetGeneric(item.product, item.color, item.qty, "Simpan Perubahan");
 }
 
-/* PROSES CHECKOUT DENGAN NOTIFIKASI ADMIN */
+/* PROSES CHECKOUT DENGAN SINKRONISASI DATA DAN NOTIFIKASI KHUSUS ADMIN */
 function processOrder() {
   if (cart.length === 0) return;
   const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.qty), 0);
   const custName = currentUser ? currentUser.name : 'Seraphine Azellie';
-  const prodSummary = cart.map(i => i.product.name).join(', ');
+  const custPhone = currentUser ? currentUser.phone : '08123456789';
+  const custEmail = currentUser ? currentUser.email : 'seraphineazellie@gmail.com';
+  const custAddress = 'Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan';
+  
+  const paymentMethodVal = document.getElementById('payment-method').value;
+  let paymentLabel = 'COD';
+  if (paymentMethodVal.includes('Transfer')) paymentLabel = 'Transfer Bank';
+  if (paymentMethodVal.includes('E-Wallet')) paymentLabel = 'E-Wallet';
+
+  const orderIdCode = 'AZR-' + Math.floor(100000 + Math.random() * 900000);
+  const itemNames = cart.map(i => `${i.product.name} x${i.qty}`).join(', ');
 
   const newOrder = {
-    id: 'PHS-' + Math.floor(100000 + Math.random() * 900000),
+    id: orderIdCode,
     date: '07 Ags 2026',
     category: 'harian',
     customer: custName,
+    phone: custPhone,
+    email: custEmail,
+    address: custAddress,
     items: [...cart],
+    shippingFee: 15000,
     total: subtotal + 15000,
-    payment: document.getElementById('payment-method').value,
-    status: 'Diproses'
+    payment: paymentLabel,
+    status: 'Dikemas'
   };
 
   orders.unshift(newOrder);
 
+  // NOTIFIKASI DIKIRIM KE ANTRIAN KHUSUS ADMIN (TIDAK MUNCUL DI PELANGGAN)
+  adminNotificationsQueue.push(`Pesanan ${newOrder.id} masuk dipesan oleh ${custName} (${itemNames})`);
+
   cart = [];
   updateCartBadge();
-
-  // NOTIFIKASI UNTUK ADMIN
-  showToast(`Pesanan masuk: ${prodSummary} dipesan oleh ${custName}!`);
+  
+  // TOAST PELANGGAN TAMPILKAN KONFIRMASI PEMESANAN
+  showToast("Pesanan Anda Berhasil Dibuat!");
 
   navigateTo('customer-orders-page');
 }
 
+/* TAMPILAN PESANAN SAMA PERSIS SEPERTI FOTO/SCREENSHOT ACUAN USER */
 function renderCustomerOrders() {
   const container = document.getElementById('customer-order-list');
   if (orders.length === 0) {
@@ -241,22 +272,30 @@ function renderCustomerOrders() {
   }
 
   container.innerHTML = orders.map(order => {
-    let statusClass = 'status-diproses';
-    if (order.status === 'Dikirim') statusClass = 'status-dikirim';
-    if (order.status === 'Selesai') statusClass = 'status-selesai';
+    const itemSummaryList = order.items.map(i => `${i.product.name}`).join(', ');
+    const ongkirText = order.shippingFee ? ` (Inc. Ongkir Rp ${order.shippingFee.toLocaleString('id-ID')})` : ' (Inc. Ongkir Rp 15.000)';
 
     return `
-      <div class="order-card" style="flex-direction:column;">
-        <div class="flex-between" style="border-bottom:1px solid var(--border-light); padding-bottom:6px; font-size:12px;">
-          <strong>${order.id}</strong>
-          <span class="status-badge ${statusClass}">${order.status}</span>
+      <div class="order-card-azariya">
+        <div class="order-card-header">
+          <span class="order-id-title">#${order.id}</span>
+          <span class="order-status-badge"><i class="fa-solid fa-box"></i> ${order.status}</span>
         </div>
-        ${order.items.map(i => `<div style="font-size:12px; margin:4px 0;">• ${i.product.name} (${i.color || 'Standard'}) x${i.qty} unit</div>`).join('')}
-        <div class="flex-between" style="border-top:1px dashed var(--border-light); padding-top:6px; margin-top:6px; font-size:12px;">
-          <span>Total Pembayaran:</span>
-          <strong style="color:var(--primary);">Rp ${order.total.toLocaleString('id-ID')}</strong>
-        </div>
+        <div class="order-detail-line"><strong>Pemesanan Oleh:</strong> ${order.customer} (${order.phone || '08123456789'})</div>
+        <div class="order-detail-line"><strong>Email:</strong> ${order.email || 'seraphineazellie@gmail.com'}</div>
+        <div class="order-detail-line"><strong>Alamat Pengiriman:</strong> ${order.address || 'Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan'}</div>
+        
+        <div class="order-product-line">${itemSummaryList}${ongkirText}</div>
+        <div class="order-price-line">Rp ${order.total.toLocaleString('id-ID')} (${order.payment})</div>
       </div>
     `;
   }).join('');
+}
+
+function clearCustomerHistory() {
+  if (confirm("Apakah Anda yakin ingin menghapus semua riwayat pesanan?")) {
+    orders = [];
+    renderCustomerOrders();
+    showToast("Riwayat pesanan berhasil dibersihkan.");
+  }
 }
