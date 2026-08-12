@@ -46,20 +46,20 @@ let products = [
   },
   {
     id: 3,
-    name: "Pulse Watch Pro Series 8 AMOLED",
+    name: "Iphone 17 air dengan kamera depan 18 MP dengan fitur Center Stage.",
     price: 2490000,
     stock: 50,
     rating: 4.8,
     sold: 230,
     colors: ["HITAM", "SILVER", "PINK"],
     colorMap: {
-      "HITAM": "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=500&q=80",
-      "SILVER": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80",
-      "PINK": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?auto=format&fit=crop&w=500&q=80"
+      "HITAM": "ip17air.jpg",
+      "SILVER": "ip17air.jpg",
+      "PINK": "ip17air.jpg"
     },
-    img: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=500&q=80",
+    img: "ip17air.jpg",
     video: "https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-person-using-a-smartwatch-41530-large.mp4",
-    desc: "Smartwatch canggih dengan pemantau kesehatan 24/7, sensor EKG, GPS presisi tinggi, dan ketahanan air hingga 50 meter.",
+    desc: "iPhone Air (sering disebut iPhone 17 Air) hadir sebagai lini iPhone tertipis dari Apple dengan ketebalan hanya sekitar 5,6 mm dan bobot ringan 145 gram. Ponsel ini mengusung layar Super Retina XDR OLED 6,5 inci (120 Hz ProMotion, 3000 nits), ditenagai chip Apple A19 Pro, RAM 12 GB, kamera utama tunggal Fusion 48 MP, kamera depan 18 MP, serta dukungan khusus eSIM",
     reviews: [
       { name: "Yesava Maureen", rating: 5, date: "04 Ags 2026", variant: "Warna: SILVR", comment: "Sensor detak jantung dan pelacak tidurnya sangat akurat. Tampilan layarnya jernih!" }
     ]
