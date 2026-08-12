@@ -16,19 +16,38 @@ function chooseRole(role) {
   const phoneInput = document.getElementById('login-phone');
   const passInput = document.getElementById('login-password');
 
+  const emailGroup = document.getElementById('login-email-group');
+  const phoneGroup = document.getElementById('login-phone-group');
+
   userInput.value = "";
-  emailInput.value = "";
-  phoneInput.value = "";
+  if (emailInput) emailInput.value = "";
+  if (phoneInput) phoneInput.value = "";
   passInput.value = "";
 
   if (role === 'admin') {
     roleTitle.innerText = "Login Admin (Penjual)";
     roleSubtitle.innerText = "Silakan masukkan kredensial Admin Gadget Store";
     userLabel.innerText = "Username Admin";
+
+    // Sembunyikan Email & Phone untuk Admin
+    if (emailGroup) emailGroup.style.display = 'none';
+    if (phoneGroup) phoneGroup.style.display = 'none';
+
+    // Hapus required attribute agar form dapat dikirim tanpa mengisinya
+    if (emailInput) emailInput.removeAttribute('required');
+    if (phoneInput) phoneInput.removeAttribute('required');
   } else {
     roleTitle.innerText = "Login Pelanggan";
     roleSubtitle.innerText = "Silakan masukkan data diri Anda";
     userLabel.innerText = "Username Pelanggan";
+
+    // Tampilkan Email & Phone untuk Pelanggan
+    if (emailGroup) emailGroup.style.display = 'block';
+    if (phoneGroup) phoneGroup.style.display = 'block';
+
+    // Pasang kembali required attribute
+    if (emailInput) emailInput.setAttribute('required', 'true');
+    if (phoneInput) phoneInput.setAttribute('required', 'true');
   }
 
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -39,17 +58,19 @@ function handleLogin(e) {
   e.preventDefault();
   
   const u = document.getElementById('login-username').value.trim();
-  const email = document.getElementById('login-email').value.trim();
-  const phone = document.getElementById('login-phone').value.trim();
+  const emailInput = document.getElementById('login-email');
+  const phoneInput = document.getElementById('login-phone');
+  
+  const email = emailInput ? emailInput.value.trim() : '';
+  const phone = phoneInput ? phoneInput.value.trim() : '';
   const p = document.getElementById('login-password').value.trim();
 
   if (selectedRole === 'admin') {
     const validUser = u.toLowerCase() === 'hiraya georgienne';
     const validPass = p === 'HG'; 
-    const validEmail = email.toLowerCase() === 'hirayagienne@gmail.com' || email === ''; 
-    const validPhone = phone === '0828' || phone === '';
 
-    if (validUser && validPass && validEmail && validPhone) {
+    // Admin HANYA memeriksa Username dan Password
+    if (validUser && validPass) {
       currentUser = { 
         role: 'admin', 
         name: 'Hiraya Georgienne',
