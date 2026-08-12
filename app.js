@@ -2,7 +2,7 @@ function showToast(message) {
   const toast = document.getElementById('toast');
   document.getElementById('toast-text').innerText = message;
   toast.classList.add('show');
-  setTimeout(() => { toast.classList.remove('show'); }, 3000);
+  setTimeout(() => { toast.classList.remove('show'); }, 3500);
 }
 
 function navigateTo(pageId, pushToHistory = true) {
@@ -137,7 +137,6 @@ function updateCartBadge() {
   document.getElementById('cart-badge-count').innerText = totalQty;
 }
 
-// LOGIKA MODAL POP-UP VARIASI
 function openSheetGeneric(productObj, currentColor, currentQty, buttonLabel) {
   selectedDetailProduct = productObj;
   selectedColor = currentColor || productObj.colors[0];
