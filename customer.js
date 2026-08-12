@@ -217,14 +217,22 @@ function openVariantSheetFromCart(index) {
   openSheetGeneric(item.product, item.color, item.qty, "Simpan Perubahan");
 }
 
-/* PROSES CHECKOUT DENGAN SINKRONISASI DATA DAN NOTIFIKASI KHUSUS ADMIN */
+/* PROSES CHECKOUT DENGAN ALAMAT PENGIRIMAN MANUAL */
 function processOrder() {
   if (cart.length === 0) return;
+
+  const addressInput = document.getElementById('checkout-address-input');
+  const custAddress = addressInput ? addressInput.value.trim() : 'Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan';
+
+  if (!custAddress) {
+    showToast("Silakan masukkan alamat pengiriman Anda terlebih dahulu!");
+    return;
+  }
+
   const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.qty), 0);
   const custName = currentUser ? currentUser.name : 'Seraphine Azellie';
   const custPhone = currentUser ? currentUser.phone : '08123456789';
   const custEmail = currentUser ? currentUser.email : 'seraphineazellie@gmail.com';
-  const custAddress = 'Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan';
   
   const paymentMethodVal = document.getElementById('payment-method').value;
   let paymentLabel = 'COD';
@@ -251,19 +259,17 @@ function processOrder() {
 
   orders.unshift(newOrder);
 
-  // NOTIFIKASI DIKIRIM KE ANTRIAN KHUSUS ADMIN (TIDAK MUNCUL DI PELANGGAN)
+  // NOTIFIKASI DIKIRIM KE ANTRIAN KHUSUS ADMIN
   adminNotificationsQueue.push(`Pesanan ${newOrder.id} masuk dipesan oleh ${custName} (${itemNames})`);
 
   cart = [];
   updateCartBadge();
   
-  // TOAST PELANGGAN TAMPILKAN KONFIRMASI PEMESANAN
   showToast("Pesanan Anda Berhasil Dibuat!");
 
   navigateTo('customer-orders-page');
 }
 
-/* TAMPILAN PESANAN SAMA PERSIS SEPERTI FOTO/SCREENSHOT ACUAN USER */
 function renderCustomerOrders() {
   const container = document.getElementById('customer-order-list');
   if (orders.length === 0) {
@@ -283,19 +289,11 @@ function renderCustomerOrders() {
         </div>
         <div class="order-detail-line"><strong>Pemesanan Oleh:</strong> ${order.customer} (${order.phone || '08123456789'})</div>
         <div class="order-detail-line"><strong>Email:</strong> ${order.email || 'seraphineazellie@gmail.com'}</div>
-        <div class="order-detail-line"><strong>Alamat Pengiriman:</strong> ${order.address || 'Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan'}</div>
+        <div class="order-detail-line"><strong>Alamat Pengiriman:</strong> ${order.address}</div>
         
         <div class="order-product-line">${itemSummaryList}${ongkirText}</div>
         <div class="order-price-line">Rp ${order.total.toLocaleString('id-ID')} (${order.payment})</div>
       </div>
     `;
   }).join('');
-}
-
-function clearCustomerHistory() {
-  if (confirm("Apakah Anda yakin ingin menghapus semua riwayat pesanan?")) {
-    orders = [];
-    renderCustomerOrders();
-    showToast("Riwayat pesanan berhasil dibersihkan.");
-  }
 }
