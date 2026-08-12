@@ -1,5 +1,16 @@
+// Mengambil data pelanggan yang tersimpan dari localStorage (jika ada)
+let savedCustomer = JSON.parse(localStorage.getItem('saved_customer')) || null;
+
 function chooseRole(role) {
   selectedRole = role;
+  
+  // JIKA PELANGGAN & SUDAH ADA DATA TERSIMPAN -> LANGSUNG LOGIN
+  if (role === 'customer' && savedCustomer) {
+    currentUser = savedCustomer;
+    showWelcomeScreen();
+    return; // Hentikan fungsi agar tidak perlu membuka form login
+  }
+
   const roleTitle = document.getElementById('login-role-title');
   const roleSubtitle = document.getElementById('login-role-subtitle');
   const userLabel = document.getElementById('login-user-label');
@@ -20,7 +31,7 @@ function chooseRole(role) {
     userLabel.innerText = "Username Admin";
   } else {
     roleTitle.innerText = "Login Pelanggan";
-    roleSubtitle.innerText = "Silakan masukkan data diri Anda";
+    roleSubtitle.innerText = "Silakan masukkan data diri Anda (Pertama Kali)";
     userLabel.innerText = "Username Pelanggan";
   }
 
@@ -53,12 +64,19 @@ function handleLogin(e) {
       showToast("Kredensial Admin Salah! Periksa kembali data Anda.");
     }
   } else {
+    // JIKA PELANGGAN BARU PERTAMA KALI LOGIN
+    // Ambil input user atau gunakan nilai default jika kosong
     currentUser = { 
       role: 'customer', 
       name: u || 'Seraphine Azellie',
       email: email || 'seraphineazellie@gmail.com',
       phone: phone || '08123456789'
     };
+
+    // SIMPAN DATA PELANGGAN KE LOCALSTORAGE AGAR TIDAK PERLU INPUT LAGI
+    savedCustomer = currentUser;
+    localStorage.setItem('saved_customer', JSON.stringify(currentUser));
+
     showWelcomeScreen();
   }
 }
@@ -108,4 +126,11 @@ function handleLogout() {
   goToRoleSelection();
   historyStack = [];
   showToast("Anda telah keluar dari akun");
+}
+
+// OPTIONAL: Panggil fungsi ini jika ingin menghapus data pelanggan terdaftar (Reset Akun Pelanggan)
+function clearSavedCustomer() {
+  localStorage.removeItem('saved_customer');
+  savedCustomer = null;
+  showToast("Data identitas pelanggan telah dihapus.");
 }
