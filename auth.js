@@ -1,10 +1,5 @@
-// 1. PASTIKAN DEKLARASI VARIABEL GLOBAL INI ADA DI PALING ATAS FILE JS
-let selectedRole = '';
-let currentUser = null;
-let savedCustomer = JSON.parse(localStorage.getItem('saved_customer')) || null;
-
 function chooseRole(role) {
-  selectedRole = role; // Simpan peran yang dipilih
+  selectedRole = role;
   
   if (role === 'customer' && savedCustomer) {
     currentUser = savedCustomer;
@@ -21,7 +16,6 @@ function chooseRole(role) {
   const phoneInput = document.getElementById('login-phone');
   const passInput = document.getElementById('login-password');
 
-  // Kosongkan form setiap kali memilih peran
   userInput.value = "";
   emailInput.value = "";
   phoneInput.value = "";
@@ -44,20 +38,17 @@ function chooseRole(role) {
 function handleLogin(e) {
   e.preventDefault();
   
-  // Ambil input dan bersihkan spasi di awal/akhir
   const u = document.getElementById('login-username').value.trim();
   const email = document.getElementById('login-email').value.trim();
   const phone = document.getElementById('login-phone').value.trim();
   const p = document.getElementById('login-password').value.trim();
 
   if (selectedRole === 'admin') {
-    // Pengubahan ke .toLowerCase() agar tidak masalah jika mengetik huruf besar/kecil
     const validUser = u.toLowerCase() === 'hiraya georgienne';
-    const validPass = p === 'HG'; // Password tetap kapital
+    const validPass = p === 'HG'; 
     const validEmail = email.toLowerCase() === 'hirayagienne@gmail.com' || email === ''; 
     const validPhone = phone === '0828' || phone === '';
 
-    // Mengecek Username & Password (Email & Phone opsional jika tidak diisi di form)
     if (validUser && validPass && validEmail && validPhone) {
       currentUser = { 
         role: 'admin', 
@@ -70,17 +61,61 @@ function handleLogin(e) {
       showToast("Kredensial Admin Salah! Periksa kembali Username dan Password Anda.");
     }
   } else {
-    // Login Pelanggan (Otomatis Simpan ke LocalStorage)
     currentUser = { 
       role: 'customer', 
-      name: u || 'Seraphine azellie',
+      name: u || 'Seraphine Azellie',
       email: email || 'seraphineazellie@gmail.com',
       phone: phone || '0812'
     };
 
     savedCustomer = currentUser;
     localStorage.setItem('saved_customer', JSON.stringify(currentUser));
-
     showWelcomeScreen();
+  }
+}
+
+function showWelcomeScreen() {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const welcomePage = document.getElementById('welcome-page');
+  const heading = document.getElementById('welcome-heading');
+  const subtext = document.getElementById('welcome-subtext');
+
+  if (currentUser.role === 'admin') {
+    heading.innerText = `Selamat Datang, Admin ${currentUser.name}!`;
+    subtext.innerText = "Anda memiliki akses penuh untuk mengelola katalog gadget, stok, memproses pesanan, serta memantau laporan keuangan toko.";
+  } else {
+    heading.innerText = `Selamat Datang, ${currentUser.name}!`;
+    subtext.innerText = "Nikmati pengalaman berbelanja gadget dan elektronik canggih premium dengan garansi resmi dan penawaran terbaik.";
+  }
+
+  welcomePage.classList.add('active');
+}
+
+function proceedToMainApp() {
+  setupLayoutForUser();
+  if (currentUser.role === 'admin') {
+    navigateTo('admin-dashboard-page');
+  } else {
+    navigateTo('customer-home');
+  }
+}
+
+function goToRoleSelection() {
+  historyStack = [];
+  document.getElementById('main-header').style.display = 'none';
+  document.getElementById('main-nav').style.display = 'none';
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('role-selection-page').classList.add('active');
+}
+
+function handleLogout() {
+  if (confirm("Apakah Anda yakin ingin keluar?")) {
+    if (currentUser?.role === 'customer') {
+      localStorage.removeItem('saved_customer');
+      savedCustomer = null;
+    }
+    currentUser = null;
+    goToRoleSelection();
+    showToast("Berhasil keluar akun.");
   }
 }
