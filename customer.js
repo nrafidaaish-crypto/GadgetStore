@@ -167,13 +167,20 @@ function removeFromCart(index) {
   showToast("Produk dihapus dari keranjang");
 }
 
+/* DITAMBAHKAN/DIPERBARUI: MEWASPADAI DAN MENGISI ALAMAT OTOMATIS DARI LOG IN */
 function renderCheckout() {
   const container = document.getElementById('checkout-items');
   const nameEl = document.getElementById('checkout-cust-name');
   const phoneEl = document.getElementById('checkout-cust-phone');
-  
+  const addressInput = document.getElementById('checkout-address-input');
+
   if (nameEl) nameEl.innerText = currentUser ? currentUser.name : 'Seraphine Azellie';
   if (phoneEl) phoneEl.innerText = currentUser ? currentUser.phone : '08123456789';
+  
+  // Mengisi input alamat pengiriman secara otomatis dari currentUser
+  if (addressInput && currentUser && currentUser.address) {
+    addressInput.value = currentUser.address;
+  }
 
   let subtotal = 0;
   container.innerHTML = cart.map(item => {
@@ -222,7 +229,7 @@ function processOrder() {
   if (cart.length === 0) return;
 
   const addressInput = document.getElementById('checkout-address-input');
-  const custAddress = addressInput ? addressInput.value.trim() : 'Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan';
+  const custAddress = addressInput ? addressInput.value.trim() : (currentUser?.address || 'Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan');
 
   if (!custAddress) {
     showToast("Silakan masukkan alamat pengiriman Anda terlebih dahulu!");
@@ -296,4 +303,19 @@ function renderCustomerOrders() {
       </div>
     `;
   }).join('');
+}
+
+/* FUNGSI BARU: RENDER PROFIL PELANGGAN SECARA DINAMIS */
+function renderCustomerProfile() {
+  if (!currentUser || currentUser.role !== 'customer') return;
+
+  const nameEl = document.getElementById('profile-display-name');
+  const emailEl = document.getElementById('profile-display-email');
+  const phoneEl = document.getElementById('profile-display-phone');
+  const addressEl = document.getElementById('profile-display-address');
+
+  if (nameEl) nameEl.innerText = currentUser.name;
+  if (emailEl) emailEl.innerText = currentUser.email;
+  if (phoneEl) phoneEl.innerText = currentUser.phone;
+  if (addressEl) addressEl.innerText = currentUser.address;
 }
