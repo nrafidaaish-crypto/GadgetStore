@@ -1,11 +1,11 @@
-let currentUser = null;
+ let currentUser = null;
 let selectedRole = 'customer';
 let historyStack = [];
 
 let products = [
   {
     id: 1,
-    name: "Ultra Phone 15 Pro Max 256GB",
+    name: "Iphone 16 256GB",
     price: 18500000,
     stock: 25,
     rating: 4.9,
