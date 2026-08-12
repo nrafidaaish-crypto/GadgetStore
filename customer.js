@@ -167,7 +167,6 @@ function removeFromCart(index) {
   showToast("Produk dihapus dari keranjang");
 }
 
-/* DITAMBAHKAN/DIPERBARUI: MEWASPADAI DAN MENGISI ALAMAT OTOMATIS DARI LOG IN */
 function renderCheckout() {
   const container = document.getElementById('checkout-items');
   const nameEl = document.getElementById('checkout-cust-name');
@@ -177,7 +176,7 @@ function renderCheckout() {
   if (nameEl) nameEl.innerText = currentUser ? currentUser.name : 'Seraphine Azellie';
   if (phoneEl) phoneEl.innerText = currentUser ? currentUser.phone : '08123456789';
   
-  // Mengisi input alamat pengiriman secara otomatis dari currentUser
+  // Mengisi otomatis Alamat Pengiriman di Checkout dari Alamat saat Login
   if (addressInput && currentUser && currentUser.address) {
     addressInput.value = currentUser.address;
   }
@@ -224,7 +223,6 @@ function openVariantSheetFromCart(index) {
   openSheetGeneric(item.product, item.color, item.qty, "Simpan Perubahan");
 }
 
-/* PROSES CHECKOUT DENGAN ALAMAT PENGIRIMAN MANUAL */
 function processOrder() {
   if (cart.length === 0) return;
 
@@ -266,7 +264,7 @@ function processOrder() {
 
   orders.unshift(newOrder);
 
-  // NOTIFIKASI DIKIRIM KE ANTRIAN KHUSUS ADMIN
+  // NOTIFIKASI DIKIRIM KE ADMIN
   adminNotificationsQueue.push(`Pesanan ${newOrder.id} masuk dipesan oleh ${custName} (${itemNames})`);
 
   cart = [];
@@ -305,7 +303,6 @@ function renderCustomerOrders() {
   }).join('');
 }
 
-/* FUNGSI BARU: RENDER PROFIL PELANGGAN SECARA DINAMIS */
 function renderCustomerProfile() {
   if (!currentUser || currentUser.role !== 'customer') return;
 
