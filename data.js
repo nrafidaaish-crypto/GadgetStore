@@ -19,7 +19,7 @@ let products = [
     },
     img: "ip16.jpg",
     video: "https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-with-a-green-screen-41532-large.mp4",
-    desc: "Iphone 16 dengan chipset tercepat, kamera kelas profesional 108MP, dan bodi berbahan Titanium ultra tahan lama.",
+    desc: "iPhone 16 hadir dengan layar Super Retina XDR OLED 6,1 inci, ditenagai chip A18 (3 nm) yang kencang, RAM 8 GB, serta kamera utama Fusion 48 MP dengan susunan vertikal. Ponsel ini dilengkapi tombol baru Camera Control dan Action Button, serta pilihan warna: Hitam, Putih, Pink, Hijau Kebiruan, dan Ultramarine",
     reviews: [
       { name: "Seraphine Azellie", rating: 5, date: "02 Ags 2026", variant: "Warna: TITANIUM", comment: "Layar OLED-nya super tajam, kamera malamnya jernih banget tanpa noise! ❤️❤️" },
       { name: "Rylee Karlanna", rating: 5, date: "28 Jul 2026", variant: "Warna: HITAM", comment: "Performa gaming tanpa lag dan daya tahan baterai seharian penuhh." }
@@ -27,19 +27,19 @@ let products = [
   },
   {
     id: 2,
-    name: "AeroBlade RGB Gaming Laptop i9 32GB",
-    price: 24990000,
+    name: "Apple Iphone 13 32GB",
+    price: 8990000,
     stock: 15,
     rating: 5.0,
     sold: 142,
     colors: ["HITAM", "SILVER"],
     colorMap: {
-      "HITAM": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=500&q=80",
-      "SILVER": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=80"
+      "HITAM": "ip13.jpg",
+      "SILVER": " ip13.jpg"
     },
-    img: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=500&q=80",
+    img: "ip13.jpg",
     video: "https://assets.mixkit.co/videos/preview/mixkit-hands-typing-on-a-laptop-41528-large.mp4",
-    desc: "Laptop gaming performa tinggi dengan prosesor i9 generasi terbaru, kartu grafis RTX, serta layar 240Hz untuk pengalaman gaming dan render maksimal.",
+    desc: "Apple iPhone 13 (dirilis 2021) dibekali layar Super Retina XDR OLED 6,1 inci, chipset Apple A15 Bionic (5 nm), RAM 4 GB, penyimpanan 128GB/256GB/512GB, kamera ganda belakang 12 MP (utama dan ultra-wide), kamera depan 12 MP, serta baterai 3.240 mAh dengan port Lightning.",
     reviews: [
       { name: "Vathea Anasya", rating: 5, date: "03 Ags 2026", variant: "Warna: HITAM", comment: "Game AAA rata kanan dapet 120+ FPS! System pendinginnya sangat adem." }
     ]
