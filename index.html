@@ -71,12 +71,14 @@
           <input type="text" id="login-username" placeholder="Masukkan Username..." required>
         </div>
 
-        <div class="input-group" style="text-align: left;">
+        <!-- Tambahkan ID login-email-group untuk kontrol tampilan -->
+        <div class="input-group" id="login-email-group" style="text-align: left;">
           <label id="login-email-label">Email</label>
           <input type="email" id="login-email" placeholder="Masukkan Email..." required>
         </div>
 
-        <div class="input-group" style="text-align: left;">
+        <!-- Tambahkan ID login-phone-group untuk kontrol tampilan -->
+        <div class="input-group" id="login-phone-group" style="text-align: left;">
           <label id="login-phone-label">No. Telepon</label>
           <input type="tel" id="login-phone" placeholder="Masukkan Nomor Telepon..." required>
         </div>
@@ -138,12 +140,18 @@
       </div>
     </div>
 
-    <!-- 5. CHECKOUT -->
+    <!-- 5. CHECKOUT (ALAMAT BISA DIISI MANUAL) -->
     <div id="checkout-page" class="page">
       <h3 style="font-size:14px; margin-bottom:12px; color:var(--primary-dark);">Alamat Pengiriman</h3>
-      <div style="background:rgba(255, 255, 255, 0.94); padding:12px; border-radius:var(--radius); margin-bottom:16px; font-size:12px; border:1px solid var(--border-light);">
-        <p style="font-weight:600;"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> <span id="checkout-cust-name">Seraphine Azellie</span> | <span id="checkout-cust-phone">08123456789</span></p>
-        <p style="color:var(--text-muted); margin-top:4px;" id="checkout-cust-address">Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan</p>
+      <div style="background:rgba(255, 255, 255, 0.94); padding:14px; border-radius:var(--radius); margin-bottom:16px; border:1px solid var(--border-light);">
+        <p style="font-weight:600; font-size:12px; margin-bottom:10px;">
+          <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> 
+          <span id="checkout-cust-name">Seraphine Azellie</span> | <span id="checkout-cust-phone">08123456789</span>
+        </p>
+        <div class="input-group" style="margin-bottom:0;">
+          <label style="font-size:11px; font-weight:600; color:var(--text-muted);">Masukkan Alamat Pengiriman Lengkap:</label>
+          <textarea id="checkout-address-input" rows="3" placeholder="Tuliskan nama jalan, No. rumah, RT/RW, Kecamatan, Kota, Kode Pos..." required>Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan</textarea>
+        </div>
       </div>
 
       <h3 style="font-size:14px; margin-bottom:12px; color:var(--primary-dark);">Rincian Pesanan</h3>
@@ -175,11 +183,10 @@
       </div>
     </div>
 
-    <!-- 6. RIWAYAT PESANAN (PELANGGAN) -->
+    <!-- 6. RIWAYAT PESANAN (TOMBOL HAPUS RIWAYAT SUDAH DIHILANGKAN) -->
     <div id="customer-orders-page" class="page">
       <div class="flex-between" style="margin-bottom:14px;">
         <h3 style="font-size:16px; font-weight:700; color:var(--primary-dark);"><i class="fa-solid fa-truck-ramps-box"></i> Status Pesanan</h3>
-        <button class="btn-clear-history" onclick="clearCustomerHistory()"><i class="fa-solid fa-trash"></i> Hapus Riwayat</button>
       </div>
       <div id="customer-order-list"></div>
     </div>
