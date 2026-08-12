@@ -30,17 +30,14 @@ function openProductDetail(id) {
   container.innerHTML = `
     <div class="media-slider-container">
       <div class="media-slider">
-        <!-- Slide 1: Foto Produk -->
         <div class="media-slide">
           <span class="media-badge"><i class="fa-solid fa-image"></i> Foto 1/2</span>
           <img src="${initialImg}" id="main-detail-img" alt="${selectedDetailProduct.name}">
         </div>
-        <!-- Slide 2: Video Produk -->
         <div class="media-slide">
           <span class="media-badge"><i class="fa-solid fa-video"></i> Video 2/2</span>
           <video controls playsinline loop muted autoplay style="width:100%; height:330px; object-fit:cover;">
             <source src="${selectedDetailProduct.video}" type="video/mp4">
-            Browser Anda tidak mendukung pemutaran video.
           </video>
         </div>
       </div>
@@ -57,7 +54,6 @@ function openProductDetail(id) {
         <span><i class="fa-solid fa-truck-fast" style="color: #27ae60;"></i> Pengiriman 2-3 Hari</span>
       </div>
 
-      <!-- Hyperlink Video Showcase -->
       <div class="video-hyperlink-box">
         <span style="font-size:11px; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-film" style="color:var(--primary);"></i> Tonton Showcase Resmi:</span>
         <a href="${selectedDetailProduct.video}" target="_blank" class="video-hyperlink-btn">
@@ -208,24 +204,32 @@ function openVariantSheetFromCart(index) {
   openSheetGeneric(item.product, item.color, item.qty, "Simpan Perubahan");
 }
 
+/* PROSES CHECKOUT DENGAN NOTIFIKASI ADMIN */
 function processOrder() {
   if (cart.length === 0) return;
   const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.qty), 0);
+  const custName = currentUser ? currentUser.name : 'Seraphine Azellie';
+  const prodSummary = cart.map(i => i.product.name).join(', ');
 
-  orders.unshift({
+  const newOrder = {
     id: 'PHS-' + Math.floor(100000 + Math.random() * 900000),
     date: '07 Ags 2026',
     category: 'harian',
-    customer: currentUser ? currentUser.name : 'Seraphine Azellie',
+    customer: custName,
     items: [...cart],
     total: subtotal + 15000,
     payment: document.getElementById('payment-method').value,
     status: 'Diproses'
-  });
+  };
+
+  orders.unshift(newOrder);
 
   cart = [];
   updateCartBadge();
-  showToast("Pesanan Gadget Berhasil Dibuat!");
+
+  // NOTIFIKASI UNTUK ADMIN
+  showToast(`Pesanan masuk: ${prodSummary} dipesan oleh ${custName}!`);
+
   navigateTo('customer-orders-page');
 }
 
@@ -236,17 +240,23 @@ function renderCustomerOrders() {
     return;
   }
 
-  container.innerHTML = orders.map(order => `
-    <div class="order-card" style="flex-direction:column;">
-      <div class="flex-between" style="border-bottom:1px solid var(--border-light); padding-bottom:6px; font-size:12px;">
-        <strong>${order.id}</strong>
-        <span style="color:var(--primary); font-weight:600;">${order.status}</span>
+  container.innerHTML = orders.map(order => {
+    let statusClass = 'status-diproses';
+    if (order.status === 'Dikirim') statusClass = 'status-dikirim';
+    if (order.status === 'Selesai') statusClass = 'status-selesai';
+
+    return `
+      <div class="order-card" style="flex-direction:column;">
+        <div class="flex-between" style="border-bottom:1px solid var(--border-light); padding-bottom:6px; font-size:12px;">
+          <strong>${order.id}</strong>
+          <span class="status-badge ${statusClass}">${order.status}</span>
+        </div>
+        ${order.items.map(i => `<div style="font-size:12px; margin:4px 0;">• ${i.product.name} (${i.color || 'Standard'}) x${i.qty} unit</div>`).join('')}
+        <div class="flex-between" style="border-top:1px dashed var(--border-light); padding-top:6px; margin-top:6px; font-size:12px;">
+          <span>Total Pembayaran:</span>
+          <strong style="color:var(--primary);">Rp ${order.total.toLocaleString('id-ID')}</strong>
+        </div>
       </div>
-      ${order.items.map(i => `<div style="font-size:12px; margin:4px 0;">• ${i.product.name} (${i.color || 'Standard'}) x${i.qty} unit</div>`).join('')}
-      <div class="flex-between" style="border-top:1px dashed var(--border-light); padding-top:6px; margin-top:6px; font-size:12px;">
-        <span>Total Pembayaran:</span>
-        <strong style="color:var(--primary);">Rp ${order.total.toLocaleString('id-ID')}</strong>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
