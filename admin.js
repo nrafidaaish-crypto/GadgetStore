@@ -5,6 +5,14 @@ function renderAdminDashboard() {
   const totalSales = orders.reduce((sum, o) => sum + o.total, 0);
   document.getElementById('stat-sales').innerText = `Rp ${totalSales.toLocaleString('id-ID')}`;
 
+  // TAMPILKAN NOTIFIKASI PESANAN UNTUK ADMIN JIKA ADA PESANAN BARU DARI PELANGGAN
+  if (adminNotificationsQueue.length > 0) {
+    const latestNotif = adminNotificationsQueue.shift();
+    setTimeout(() => {
+      showToast(latestNotif);
+    }, 500);
+  }
+
   const recentContainer = document.getElementById('admin-dashboard-recent-orders');
   if (!recentContainer) return;
 
@@ -13,36 +21,41 @@ function renderAdminDashboard() {
     return;
   }
 
-  recentContainer.innerHTML = orders.map(order => `
-    <div class="order-card" style="flex-direction:column;">
-      <div class="flex-between" style="font-size:12px; font-weight:600;">
-        <span>Pembeli: ${order.customer}</span>
-        <span style="color:var(--primary);">${order.id}</span>
-      </div>
-      <div style="font-size:11px; color:var(--text-muted); margin:4px 0;">
-        ${order.items.map(i => `${i.product.name} x${i.qty}`).join(', ')}
-      </div>
-      <div class="flex-between" style="font-size:12px; margin-top:6px;">
-        <span>Total: Rp ${order.total.toLocaleString('id-ID')}</span>
-        <div style="display:flex; align-items:center; gap:6px;">
-          <label style="font-size:10px; font-weight:600; color:var(--text-muted);">Status:</label>
-          <select class="status-select" onchange="updateOrderStatus('${order.id}', this.value)">
-            <option value="Diproses" ${order.status === 'Diproses' ? 'selected' : ''}>Diproses</option>
-            <option value="Dikirim" ${order.status === 'Dikirim' ? 'selected' : ''}>Dikirim</option>
-            <option value="Selesai" ${order.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
-          </select>
+  recentContainer.innerHTML = orders.map(order => {
+    const itemSummaryList = order.items.map(i => `${i.product.name} x${i.qty}`).join(', ');
+    const ongkirText = order.shippingFee ? ` (Inc. Ongkir Rp ${order.shippingFee.toLocaleString('id-ID')})` : ' (Inc. Ongkir Rp 15.000)';
+
+    return `
+      <div class="order-card-azariya" style="border-left-color: var(--primary);">
+        <div class="order-card-header">
+          <span class="order-id-title">#${order.id}</span>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <select class="status-select" onchange="updateOrderStatus('${order.id}', this.value)">
+              <option value="Dikemas" ${order.status === 'Dikemas' ? 'selected' : ''}>Dikemas</option>
+              <option value="Diproses" ${order.status === 'Diproses' ? 'selected' : ''}>Diproses</option>
+              <option value="Dikirim" ${order.status === 'Dikirim' ? 'selected' : ''}>Dikirim</option>
+              <option value="Selesai" ${order.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
+            </select>
+          </div>
         </div>
+
+        <div class="order-detail-line"><strong>Pemesanan Oleh:</strong> ${order.customer} (${order.phone || '08123456789'})</div>
+        <div class="order-detail-line"><strong>Email:</strong> ${order.email || 'seraphineazellie@gmail.com'}</div>
+        <div class="order-detail-line"><strong>Alamat Pengiriman:</strong> ${order.address || 'Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan'}</div>
+        
+        <div class="order-product-line">${itemSummaryList}${ongkirText}</div>
+        <div class="order-price-line">Rp ${order.total.toLocaleString('id-ID')} (${order.payment})</div>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
-/* ADMIN MENGUBAH STATUS PEMESANAN */
+/* ADMIN MENGUBAH STATUS PEMESANAN DARI DASHBOARD */
 function updateOrderStatus(orderId, newStatus) {
   const targetOrder = orders.find(o => o.id === orderId);
   if (targetOrder) {
     targetOrder.status = newStatus;
-    showToast(`Status pesanan ${orderId} diubah menjadi "${newStatus}"!`);
+    showToast(`Status pesanan #${orderId} diubah menjadi "${newStatus}"!`);
     renderAdminDashboard();
   }
 }
@@ -98,6 +111,7 @@ function saveProduct(e) {
       id: Date.now(),
       name, colors, price, stock, img, video, desc,
       rating: 5.0, sold: 0, reviews: [],
+      officialUrl: "https://www.apple.com/id/iphone/",
       colorMap: {}
     };
     colors.forEach(c => { newProd.colorMap[c] = img; });
@@ -182,7 +196,7 @@ function switchReportTab(type, element) {
   listEl.innerHTML = activeOrders.map(o => `
     <div style="background:rgba(255, 255, 255, 0.94); padding:12px; border-radius:var(--radius); margin-bottom:10px; font-size:12px; border:1px solid var(--border-light);">
       <div class="flex-between" style="border-bottom:1px dashed var(--border-light); padding-bottom:6px; margin-bottom:6px;">
-        <strong style="color:var(--primary);">${o.id}</strong>
+        <strong style="color:var(--primary);">#${o.id}</strong>
         <span style="color:var(--text-muted); font-size:11px;">${o.date}</span>
       </div>
       <div>Pembeli: ${o.customer}</div>
