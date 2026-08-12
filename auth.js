@@ -1,14 +1,15 @@
-// Mengambil data pelanggan yang tersimpan dari localStorage (jika ada)
+// 1. PASTIKAN DEKLARASI VARIABEL GLOBAL INI ADA DI PALING ATAS FILE JS
+let selectedRole = '';
+let currentUser = null;
 let savedCustomer = JSON.parse(localStorage.getItem('saved_customer')) || null;
 
 function chooseRole(role) {
-  selectedRole = role;
+  selectedRole = role; // Simpan peran yang dipilih
   
-  // JIKA PELANGGAN & SUDAH ADA DATA TERSIMPAN -> LANGSUNG LOGIN
   if (role === 'customer' && savedCustomer) {
     currentUser = savedCustomer;
     showWelcomeScreen();
-    return; // Hentikan fungsi agar tidak perlu membuka form login
+    return;
   }
 
   const roleTitle = document.getElementById('login-role-title');
@@ -20,6 +21,7 @@ function chooseRole(role) {
   const phoneInput = document.getElementById('login-phone');
   const passInput = document.getElementById('login-password');
 
+  // Kosongkan form setiap kali memilih peran
   userInput.value = "";
   emailInput.value = "";
   phoneInput.value = "";
@@ -31,7 +33,7 @@ function chooseRole(role) {
     userLabel.innerText = "Username Admin";
   } else {
     roleTitle.innerText = "Login Pelanggan";
-    roleSubtitle.innerText = "Silakan masukkan data diri Anda (Pertama Kali)";
+    roleSubtitle.innerText = "Silakan masukkan data diri Anda";
     userLabel.innerText = "Username Pelanggan";
   }
 
@@ -39,20 +41,24 @@ function chooseRole(role) {
   document.getElementById('login-page').classList.add('active');
 }
 
-function goToRoleSelection() {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('role-selection-page').classList.add('active');
-}
-
 function handleLogin(e) {
   e.preventDefault();
+  
+  // Ambil input dan bersihkan spasi di awal/akhir
   const u = document.getElementById('login-username').value.trim();
   const email = document.getElementById('login-email').value.trim();
   const phone = document.getElementById('login-phone').value.trim();
   const p = document.getElementById('login-password').value.trim();
 
   if (selectedRole === 'admin') {
-    if (u === 'Hiraya Georgienne' && p === 'HG' && email === 'hirayagienne@gmail.com' && phone === '0828') {
+    // Pengubahan ke .toLowerCase() agar tidak masalah jika mengetik huruf besar/kecil
+    const validUser = u.toLowerCase() === 'hiraya georgienne';
+    const validPass = p === 'HG'; // Password tetap kapital
+    const validEmail = email.toLowerCase() === 'hirayagienne@gmail.com' || email === ''; 
+    const validPhone = phone === '0828' || phone === '';
+
+    // Mengecek Username & Password (Email & Phone opsional jika tidak diisi di form)
+    if (validUser && validPass && validEmail && validPhone) {
       currentUser = { 
         role: 'admin', 
         name: 'Hiraya Georgienne',
@@ -61,76 +67,20 @@ function handleLogin(e) {
       };
       showWelcomeScreen();
     } else {
-      showToast("Kredensial Admin Salah! Periksa kembali data Anda.");
+      showToast("Kredensial Admin Salah! Periksa kembali Username dan Password Anda.");
     }
   } else {
-    // JIKA PELANGGAN BARU PERTAMA KALI LOGIN
-    // Ambil input user atau gunakan nilai default jika kosong
+    // Login Pelanggan (Otomatis Simpan ke LocalStorage)
     currentUser = { 
       role: 'customer', 
-      name: u || 'Seraphine Azellie',
+      name: u || 'Seraphine azellie',
       email: email || 'seraphineazellie@gmail.com',
       phone: phone || '0812'
     };
 
-    // SIMPAN DATA PELANGGAN KE LOCALSTORAGE AGAR TIDAK PERLU INPUT LAGI
     savedCustomer = currentUser;
     localStorage.setItem('saved_customer', JSON.stringify(currentUser));
 
     showWelcomeScreen();
   }
-}
-
-function showWelcomeScreen() {
-  historyStack = [];
-  const heading = document.getElementById('welcome-heading');
-  const subtext = document.getElementById('welcome-subtext');
-
-  if (currentUser.role === 'admin') {
-    heading.innerText = "Selamat Datang, Admin!";
-    subtext.innerHTML = `Selamat bertugas di Gadget Store, <br><strong style="font-size:18px; color:var(--primary);">${currentUser.name}</strong>`;
-  } else {
-    heading.innerText = "Selamat Datang!";
-    subtext.innerHTML = `Selamat datang di Gadget Store, <br><strong style="font-size:18px; color:var(--primary);">${currentUser.name}</strong>`;
-  }
-
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('welcome-page').classList.add('active');
-  document.getElementById('main-header').style.display = 'none';
-  document.getElementById('main-nav').style.display = 'none';
-}
-
-function proceedToMainApp() {
-  const toast = document.getElementById('toast');
-  if (toast) toast.classList.remove('show');
-
-  if (currentUser.role === 'admin') {
-    completeLogin('admin-dashboard-page', "Selamat bertugas Admin!");
-  } else {
-    completeLogin('customer-home', `Selamat berbelanja, ${currentUser.name}!`);
-  }
-}
-
-function completeLogin(targetPage, message) {
-  historyStack = [];
-  setupLayoutForUser();
-  showToast(message);
-  navigateTo(targetPage);
-}
-
-function handleLogout() {
-  currentUser = null;
-  document.getElementById('main-header').style.display = 'none';
-  document.getElementById('main-nav').style.display = 'none';
-  
-  goToRoleSelection();
-  historyStack = [];
-  showToast("Anda telah keluar dari akun");
-}
-
-// OPTIONAL: Panggil fungsi ini jika ingin menghapus data pelanggan terdaftar (Reset Akun Pelanggan)
-function clearSavedCustomer() {
-  localStorage.removeItem('saved_customer');
-  savedCustomer = null;
-  showToast("Data identitas pelanggan telah dihapus.");
 }
