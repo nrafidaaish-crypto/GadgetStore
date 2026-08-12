@@ -71,16 +71,20 @@
           <input type="text" id="login-username" placeholder="Masukkan Username..." required>
         </div>
 
-        <!-- Tambahkan ID login-email-group untuk kontrol tampilan -->
         <div class="input-group" id="login-email-group" style="text-align: left;">
           <label id="login-email-label">Email</label>
           <input type="email" id="login-email" placeholder="Masukkan Email..." required>
         </div>
 
-        <!-- Tambahkan ID login-phone-group untuk kontrol tampilan -->
         <div class="input-group" id="login-phone-group" style="text-align: left;">
           <label id="login-phone-label">No. Telepon</label>
           <input type="tel" id="login-phone" placeholder="Masukkan Nomor Telepon..." required>
+        </div>
+
+        <!-- DITAMBAHKAN: INPUT ALAMAT PELANGGAN -->
+        <div class="input-group" id="login-address-group" style="text-align: left;">
+          <label id="login-address-label">Alamat Lengkap</label>
+          <input type="text" id="login-address" placeholder="Masukkan Alamat Lengkap..." required>
         </div>
 
         <div class="input-group" style="text-align: left;">
@@ -150,7 +154,7 @@
         </p>
         <div class="input-group" style="margin-bottom:0;">
           <label style="font-size:11px; font-weight:600; color:var(--text-muted);">Masukkan Alamat Pengiriman Lengkap:</label>
-          <textarea id="checkout-address-input" rows="3" placeholder="Tuliskan nama jalan, No. rumah, RT/RW, Kecamatan, Kota, Kode Pos..." required>Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan</textarea>
+          <textarea id="checkout-address-input" rows="3" placeholder="Tuliskan nama jalan, No. rumah, RT/RW, Kecamatan, Kota, Kode Pos..." required></textarea>
         </div>
       </div>
 
@@ -183,7 +187,7 @@
       </div>
     </div>
 
-    <!-- 6. RIWAYAT PESANAN (TOMBOL HAPUS RIWAYAT SUDAH DIHILANGKAN) -->
+    <!-- 6. RIWAYAT PESANAN -->
     <div id="customer-orders-page" class="page">
       <div class="flex-between" style="margin-bottom:14px;">
         <h3 style="font-size:16px; font-weight:700; color:var(--primary-dark);"><i class="fa-solid fa-truck-ramps-box"></i> Status Pesanan</h3>
@@ -207,7 +211,8 @@
         </div>
         <div>
           <strong style="color:var(--text-muted); font-size:11px; display:block;">ALAMAT UTAMA</strong>
-          Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan
+          <!-- DITAMBAHKAN: SPAN DENGAN ID profile-display-address -->
+          <span id="profile-display-address">Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan</span>
         </div>
       </div>
 
